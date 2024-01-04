@@ -40,7 +40,6 @@ const ProfilePage = async ({ searchParams }: SearchParamProps) => {
           emptyTitle="No event tickets purchased yet"
           emptySubtitle="No worries - plenty of exciting events to explore!"
           collectionType="My_Tickets"
-          limit={3}
           page={orderedEvents}
           urlParamName="ordersPage"
           totalPages={orders?.totalPages}
@@ -61,7 +60,6 @@ const ProfilePage = async ({ searchParams }: SearchParamProps) => {
           emptyTitle="No events have been created yet"
           emptySubtitle="Go create some now"
           collectionType="Events_Organized"
-          limit={3}
           page={eventsPage}
           urlParamName="eventsPage"
           totalPages={organizedEvents?.totalPages}
