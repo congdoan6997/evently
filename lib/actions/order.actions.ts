@@ -3,7 +3,7 @@
 import Stripe from "stripe";
 import { connectToDatabase } from "@/lib/database";
 import Order from "@/lib/database/models/order.model";
-import { CheckoutOrderParams } from "@/types";
+import { CheckoutOrderParams, CreateOrderParams } from "@/types";
 import { handleError } from "../utils";
 import { RedirectType, redirect } from "next/navigation";
 import { NextResponse } from "next/server";
@@ -47,4 +47,21 @@ export default async function checkoutOrder(order: CheckoutOrderParams) {
   }
 
   redirect(url);
+}
+
+export async function createOrder(order: CreateOrderParams) {
+  try {
+    await connectToDatabase();
+
+    const newOrder = await Order.create({
+      ...order,
+      event: order.eventId,
+      buyer: order.buyerId,
+    });
+
+    return JSON.parse(JSON.stringify(newOrder));
+  } catch (error) {
+    console.log(error);
+    handleError(error);
+  }
 }
