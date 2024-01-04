@@ -1,13 +1,13 @@
 import { IEvent } from "@/lib/database/models/event.model";
 import React from "react";
 import Card from "./Card";
+import Pagination from "./Pagination";
 
 interface EventListComponentProps {
   data: IEvent[]; // You can replace 'any' with a more specific type for your events
   emptyTitle: string;
   emptySubtitle: string;
   collectionType?: "Events_Organized" | "My_Tickets" | "All_Events";
-  limit: number;
   page: number | string;
   totalPages?: number;
   urlParamName?: string;
@@ -18,7 +18,6 @@ const Collection: React.FC<EventListComponentProps> = ({
   emptyTitle,
   emptySubtitle,
   collectionType,
-  limit,
   page,
   totalPages = 0,
   urlParamName,
@@ -43,6 +42,14 @@ const Collection: React.FC<EventListComponentProps> = ({
               );
             })}
           </ul>
+
+          {totalPages > 1 && (
+            <Pagination
+              page={page}
+              totalPages={totalPages}
+              urlParamName={urlParamName}
+            />
+          )}
         </div>
       ) : (
         <div className="flex-center wrapper min-h-[200px] w-full flex-col gap-3 rounded-[14px] bg-grey-50 py-28 text-center">
